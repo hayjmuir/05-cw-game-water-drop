@@ -1,129 +1,130 @@
-/* Charity: water Brand Colors
-
-Primary Colors:
-- Yellow:     #FFC907
-- Blue:       #2E9DF7
-
-Secondary Colors:
-- Light Blue: #8BD1CB
-- Green:      #4FCB53
-- Orange:     #FF902A
-- Red:        #F5402C
-- Dark Green: #159A48
-- Pink:       #F16061
-
-*/
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #E6F7FF; /* Light water tone */
+  font-family: Arial, sans-serif;
 }
 
 .game-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.score-panel {
-    display: flex;
-    justify-content: space-between;  /* Space between score and button */
-    align-items: center;
-    width: 800px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-#game-container {
-    width: 800px;
-    height: 600px;
-    background-color: #e6f7ff;
-    border: 2px solid #333;
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-}
-
-
-#start-btn {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#start-btn:hover {
-    background-color: #45a049;
-}
-
-.score {
-    flex: 0 1 auto;  /* Don't grow, can shrink, auto basis */
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.water-drop {
-    position: absolute;
-    width: 40px;  /* increased from 30px */
-    height: 40px; /* increased from 30px */
-    background-color: #0099ff;
-    border-radius: 50% 50% 50% 50%;
-    animation: dropFall linear forwards;
-    transform-origin: center;
-    cursor: pointer;
-    pointer-events: auto;
-}
-
-.bad-drop {
-    background-color: #ff4444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .game-title {
-    color: #131313;
-    font-size: 48px;
-    margin-top: 0;
-    margin-bottom: 5px;  /* reduced from 20px */
-    text-align: center;
+  color: #2E9DF7; /* Blue */
+  font-size: 48px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  text-align: center;
 }
 
 .game-tagline {
-    color: #666;
-    font-size: 18px;
-    margin-bottom: 20px;
-    text-align: center;
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.score-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 800px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 2px solid #8BD1CB; /* Light Blue border */
+}
+
+.score {
+  font-size: 24px;
+  font-weight: bold;
+  color: #159A48; /* Dark Green */
+}
+
+#start-btn {
+  padding: 8px 16px;
+  background-color: #FFC907; /* Yellow */
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#start-btn:hover {
+  background-color: #FF902A; /* Orange */
+  color: #fff;
+}
+
+#game-container {
+  width: 800px;
+  height: 600px;
+  background-color: #E6F7FF;
+  border: 2px solid #2E9DF7; /* Blue border */
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.water-drop {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #2E9DF7; /* Blue drop */
+  border-radius: 50%;
+  animation: dropFall linear forwards;
+  transform-origin: center;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.bad-drop {
+  background-color: #F5402C; /* Red */
+}
+
+.message-display {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 18px;
+  display: none;
+  z-index: 10;
 }
 
 @keyframes dropFall {
-    from {
-        transform: translateY(-20px);
-    }
-    to {
-        transform: translateY(600px);
-    }
+  from {
+      transform: translateY(-20px);
+  }
+  to {
+      transform: translateY(600px);
+  }
 }
 
 @media (max-width: 850px) {
-    .game-wrapper, .score-panel, #game-container {
-        width: 95vw;
-    }
-    
-    #game-container {
-        height: 70vh;
-    }
+  .game-wrapper,
+  .score-panel,
+  #game-container {
+      width: 95vw;
+  }
+
+  #game-container {
+      height: 70vh;
+  }
 }

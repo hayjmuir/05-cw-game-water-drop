@@ -1,53 +1,72 @@
-// Game state variables
-let gameActive = false;  // Tracks if game is currently running
-let gameInterval;        // Stores the interval that creates drops
+let gameActive = false;
+let gameInterval;
+let score = 0;
 
-// Event listener for the start button
 document.getElementById('start-btn').addEventListener('click', startGame);
 
-// Game initialization function
 function startGame() {
-    // Prevent multiple game instances
     if (gameActive) return;
-    
-    // Set up initial game state
     gameActive = true;
+    score = 0;
+    updateScore(0);
     document.getElementById('start-btn').disabled = true;
-    
-    // Start creating drops every 1000ms (1 second)
+    clearMessages();
     gameInterval = setInterval(createDrop, 1000);
 }
 
-// Function to create and manage individual water drops
+function updateScore(change) {
+    score += change;
+    if (score < 0) score = 0;
+    document.getElementById('score').textContent = score;
+}
+
+function showMessage(text, color) {
+    const msg = document.getElementById('message-display');
+    msg.style.display = 'block';
+    msg.style.backgroundColor = color;
+    msg.textContent = text;
+    setTimeout(() => {
+        msg.style.display = 'none';
+    }, 1200);
+}
+
+function clearMessages() {
+    const msg = document.getElementById('message-display');
+    msg.style.display = 'none';
+    msg.textContent = '';
+}
+
 function createDrop() {
     const drop = document.createElement('div');
-    
-    // Randomly determine if this drop is good or bad (20% chance of bad)
     const isBadDrop = Math.random() < 0.2;
     drop.className = isBadDrop ? 'water-drop bad-drop' : 'water-drop';
-    
-    // Create random size variation for visual interest
-    const scale = 0.8 + Math.random() * 0.7;  // Results in 80% to 150% of original size
+
+    const scale = 0.8 + Math.random() * 0.7;
     drop.style.transform = `scale(${scale})`;
-    
-    // Position drop randomly along the width of the game container
+
     const gameWidth = document.getElementById('game-container').offsetWidth;
     const randomX = Math.random() * (gameWidth - 40);
     drop.style.left = `${randomX}px`;
-    
-    // Set drop animation speed
     drop.style.animationDuration = '4s';
-    
-    // Simple click handler to remove drops
+
     drop.addEventListener('click', () => {
         drop.remove();
+        if (isBadDrop) {
+            updateScore(-3);
+            showMessage('Oops! Bad drop!', '#ff4444');
+        } else {
+            updateScore(1);
+            showMessage('Nice catch!', '#4FCB53');
+        }
     });
-    
-    // Add drop to game container
-    document.getElementById('game-container').appendChild(drop);
-    
-    // Remove drop if it reaches bottom without being clicked
+
     drop.addEventListener('animationend', () => {
         drop.remove();
+        if (!isBadDrop) {
+            updateScore(-1);
+            showMessage('Missed a good drop!', '#FFA500');
+        }
     });
+
+    document.getElementById('game-container').appendChild(drop);
 }
