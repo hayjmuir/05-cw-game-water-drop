@@ -108,6 +108,21 @@ body {
   z-index: 10;
 }
 
+.difficulty-selector {
+  margin-bottom: 10px;
+}
+
+.difficulty-btn {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+
+
+
 @keyframes dropFall {
   from {
       transform: translateY(-20px);

@@ -1,23 +1,54 @@
 let gameActive = false;
 let gameInterval;
 let score = 0;
+let difficulty = 'normal';
+let winScore = 20;
+let dropInterval = 1000;
 
 document.getElementById('start-btn').addEventListener('click', startGame);
 
+document.querySelectorAll('.difficulty-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+      difficulty = btn.dataset.mode;
+      switch (difficulty) {
+          case 'easy':
+              winScore = 15;
+              dropInterval = 1200;
+              break;
+          case 'normal':
+              winScore = 20;
+              dropInterval = 1000;
+              break;
+          case 'hard':
+              winScore = 25;
+              dropInterval = 700;
+              break;
+      }
+      document.getElementById('message-display').textContent = `Mode: ${difficulty.toUpperCase()}`;
+  });
+});
+
 function startGame() {
-    if (gameActive) return;
-    gameActive = true;
-    score = 0;
-    updateScore(0);
-    document.getElementById('start-btn').disabled = true;
-    clearMessages();
-    gameInterval = setInterval(createDrop, 1000);
+  if (gameActive) return;
+  gameActive = true;
+  score = 0;
+  updateScore(0);
+  document.getElementById('start-btn').disabled = true;
+  clearMessages();
+  gameInterval = setInterval(createDrop, dropInterval);
 }
 
 function updateScore(change) {
-    score += change;
-    if (score < 0) score = 0;
-    document.getElementById('score').textContent = score;
+  score += change;
+  if (score < 0) score = 0;
+  document.getElementById('score').textContent = score;
+
+  if (score >= winScore) {
+      clearInterval(gameInterval);
+      gameActive = false;
+      document.getElementById('start-btn').disabled = false;
+      showMessage('You win!', '#00C851');
+  }
 }
 
 function showMessage(text, color) {
